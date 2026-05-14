@@ -3,519 +3,312 @@
   <head>
     <meta charset="UTF-8" />
     <title>ONDC Financial Services Developer Guide</title>
-    <!-- Bootstrap CSS -->
-    <link
-      rel="stylesheet"
-      href="https://cdn.jsdelivr.net/npm/swagger-ui-dist/swagger-ui.css"
-    />
-    <link
-      rel="stylesheet"
-      href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css"
-    />
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/swagger-ui-dist/swagger-ui.css" />
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" />
     <style>
-     /* .badge {
-        display: inline-block;
-        background-color: #8250df;
-        color: white;
-        padding: 4px 12px;
-        border-radius: 20px;
-        font-family: sans-serif;
-        font-size: 14px;
-        font-weight: 500;
-      } */
+/* ══ Design system — readme.io inspired ══ */
+*, *::before, *::after { box-sizing: border-box; }
+body {
+  font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, 'Helvetica Neue', Arial, sans-serif;
+  color: #1c1e21;
+  background: #ffffff;
+  font-size: 14px;
+  line-height: 1.6;
+  margin: 0;
+}
 
-      .step-space {
-              margin-left: 17px;
-        font-weight: 500;
-      }
-      .card {
-        margin-bottom: 1.5rem;
-      }
+/* ── Header ── */
+header { border-bottom: 1px solid rgba(255,255,255,.12); }
+header h1 { font-size: 16px !important; font-weight: 600; letter-spacing: -.2px; }
 
-      .scrollable-content {
-        max-height: 95vh;
-        overflow-y: auto;
-      }
+/* ── Main nav tabs — clean underline style ── */
+#myTabs {
+  border-bottom: 1px solid #e5e7eb;
+  padding: 0 8px;
+  gap: 0;
+  background: #fff;
+}
+#myTabs .nav-link {
+  border: none !important;
+  border-bottom: 2px solid transparent !important;
+  border-radius: 0;
+  color: #6b7280;
+  font-size: 13.5px;
+  font-weight: 500;
+  padding: 10px 18px;
+  margin-bottom: -1px;
+  transition: color .15s, border-color .15s;
+}
+#myTabs .nav-link:hover { color: #111827; background: transparent; border-bottom-color: #d1d5db !important; }
+#myTabs .nav-link.active { color: #1d6fc4; border-bottom-color: #1d6fc4 !important; background: transparent; font-weight: 600; }
 
-      .step-pane {
-        background-color: #f8f9fa;
-        padding: 10px;
-      }
+/* ── Branch dropdown ── */
+#contract-dropdown { font-size: 12px; padding: 3px 8px; border-radius: 5px; }
 
-      .step-list {
-        list-style: none;
-        padding-left: 0;
-      }
+/* ── Cards ── */
+.card { border: 1px solid #e5e7eb; border-radius: 8px; box-shadow: 0 1px 3px rgba(0,0,0,.04); margin-bottom: .75rem; }
+.card-body { padding: 14px; }
+.card-title { font-size: 13px; font-weight: 700; color: #111827; margin-bottom: 8px; }
 
-      .step-item {
-        cursor: pointer;
-      }
+/* ── Step sidebar (TOC style) ── */
+.step-pane { background: transparent; padding: 0; border-right: 1px solid #f3f4f6; }
+.list-group-item.step-item {
+  border: none !important;
+  border-left: 2px solid transparent !important;
+  border-radius: 0 !important;
+  padding: 6px 10px !important;
+  font-size: 12px;
+  color: #4b5563;
+  background: transparent;
+  transition: all .12s;
+  cursor: pointer;
+}
+.list-group-item.step-item:hover { background: #f9fafb !important; color: #111827 !important; border-left-color: #d1d5db !important; }
+.list-group-item.step-item.active { border-left-color: #1d6fc4 !important; background: #eff6ff !important; color: #1d4ed8 !important; }
+.step-item-inner { display: flex; align-items: flex-start; gap: 6px; }
+.step-num { font-size: 10px; color: #9ca3af; min-width: 14px; margin-top: 3px; }
+.step-item-body { display: flex; flex-direction: column; gap: 2px; }
+.step-name { font-size: 11px; color: #6b7280; }
+.step-dir  { font-size: 10px; color: #9ca3af; font-style: italic; }
 
-      .content-pane {
-        padding: 10px;
-      }
+/* ── Step content ── */
+.step-content { display: none; background: #fff; padding: 0; }
+.step-content.active { display: block; }
+.step-title-row { display: flex; align-items: center; gap: 10px; flex-wrap: wrap; margin-bottom: 14px; padding-bottom: 12px; border-bottom: 1px solid #f3f4f6; }
+.step-heading { margin: 0; font-size: 17px; font-weight: 600; color: #111827; flex: 1; line-height: 1.3; }
+.step-dir-pill { font-size: 11px; color: #6b7280; background: #f3f4f6; padding: 2px 8px; border-radius: 10px; font-weight: 500; }
+.step-details-wrap { margin-bottom: 14px; }
+.detail-description { font-size: 14px; color: #374151; line-height: 1.6; margin-bottom: 8px; }
+.mermaid-svg-wrap { overflow-x: auto; margin-bottom: 12px; }
 
-      .step-content {
-        display: none;
-        background-color: #ffffff;
-        padding: 20px;
-      }
+/* ── Method badges ── */
+.method-badge { display: inline-block; font-size: 9.5px; font-weight: 700; letter-spacing: .6px; padding: 2px 7px; border-radius: 4px; text-transform: uppercase; white-space: nowrap; font-family: monospace; }
+.method-badge.badge-lg { font-size: 11px; padding: 3px 10px; }
+.badge-request  { background: #1d4ed8; color: #fff; }
+.badge-response { background: #047857; color: #fff; }
+.badge-form     { background: #b45309; color: #fff; }
+.badge-step     { background: #6b21a8; color: #fff; }
 
-      .step-content.active {
-        display: block;
-      }
+/* ── Code block ── */
+.code-block-header {
+  display: flex; justify-content: space-between; align-items: center;
+  background: #1e293b; color: #94a3b8;
+  font-size: 11px; font-family: 'Consolas', monospace;
+  padding: 7px 12px; border-radius: 6px 6px 0 0;
+  border-bottom: 1px solid #334155; letter-spacing: .3px;
+}
+.code-block-header .cbh-action { color: #e2e8f0; font-weight: 700; font-size: 12px; }
+.code-block-header .cbh-dir   { color: #64748b; font-size: 10px; }
+.code-section { position: relative; padding: 10px; max-height: 800px; overflow-y: auto; background-color: #0f172a; border-radius: 0 0 6px 6px; }
+.annotated-json { font-family: 'Consolas', 'Fira Code', monospace; font-size: 12.5px; line-height: 1.65; white-space: pre; color: #cbd5e1; margin: 0; }
+.rj-key     { color: #93c5fd; cursor: pointer; }
+.rj-key:hover { text-decoration: underline; text-decoration-color: #93c5fd55; }
+.rj-str     { color: #fca5a5; }
+.rj-num     { color: #86efac; }
+.rj-bool    { color: #818cf8; }
+.rj-null    { color: #818cf8; }
+.rj-punct   { color: #94a3b8; }
+.rj-comment { color: #4ade80; font-style: italic; opacity: .85; }
+.rj-highlight { background: #fef08a; color: #1a1a1a; border-radius: 2px; }
+.yaml-content { max-height: 700px; overflow: auto; background: #0f172a; color: #cbd5e1; padding: 10px; font-family: 'Consolas', monospace; font-size: 12.5px; border-radius: 0 0 6px 6px; }
 
-      .yaml-content {
-        max-height: 400px;
-        overflow: auto;
-        background-color: #000000;
-        color: #ffffff;
-        padding: 10px;
-        font-family: Consolas, monospace;
-      }
-      table {
-        font-family: arial, sans-serif;
-        border-collapse: collapse;
-        width: 100%;
-      }
+/* ── Copy button ── */
+.copy-code-button { height: 28px; width: 28px; background-repeat: no-repeat; background-size: contain; position: absolute; top: 8px; right: 10px; cursor: pointer; opacity: .7; }
+.copy-code-button:hover { opacity: 1; }
 
-      td,
-      th {
-        border: 1px solid #dddddd;
-        text-align: left;
-        padding: 8px;
-      }
+/* ── Payload search ── */
+.payload-search-wrap { display: flex; align-items: center; gap: 10px; margin-bottom: 4px; }
+.payload-search-input { flex: 1; max-width: 360px; padding: 5px 12px; font-size: 13px; border: 1px solid #d1d5db; border-radius: 6px; outline: none; background: #fff; }
+.payload-search-input:focus { border-color: #1d6fc4; box-shadow: 0 0 0 2px rgba(29,111,196,.12); }
+.payload-search-hint { font-size: 11px; color: #9ca3af; }
 
-      .flow-forms {
-        width: 75%;
-      }
-      form {
-        display: flex;
-        flex-direction: column;
-        justify-content: center;
-        width: 75%;
-      }
-      .error-heading {
-        display: flex;
-        justify-content: space-between;
-        align-items: center;
-      }
-      .error-sub-heading {
-        display: flex;
-        flex-direction: column;
-      }
+/* ── Right panel ── */
+.sticky-side-panel { position: sticky; top: 0; max-height: 100vh; overflow-y: auto; padding: 8px 4px 8px 10px; border-left: 1px solid #f3f4f6; }
+.sticky-side-panel .card { border: none; border-radius: 0; box-shadow: none; border-bottom: 1px solid #f3f4f6; }
+.sticky-side-panel .card-body { padding: 10px 4px; }
+.sticky-side-panel .card-title { font-size: 11px; text-transform: uppercase; letter-spacing: .6px; color: #9ca3af; font-weight: 700; }
+.sticky-side-panel td, .sticky-side-panel th { font-size: 11px; padding: 4px 5px; }
+.sticky-side-panel .form-select { font-size: 11px; padding: 3px 6px; }
+.sticky-side-panel .table { margin-bottom: 4px; }
+.sticky-side-panel h5.card-title { font-size: 11px; }
 
-      td.Attribute {
-        max-width: 100px;
-        word-wrap: break-word;
-      }
-      td.Value {
-        max-width: 160px;
-        word-wrap: break-word;
-      }
-      td.Description {
-        min-width: 200px;
-        word-wrap: break-word;
-      }
-      .tlc-set {
-        overflow: scroll;
-      }
+/* ── Field info panel ── */
+#field-info-panel { border-left: 3px solid #1d6fc4; border-radius: 0 6px 6px 0; background: #f8fbff; border-top: none; border-right: none; border-bottom: none; box-shadow: none; }
+.field-info-title { font-size: 11px; font-weight: 700; text-transform: uppercase; letter-spacing: .6px; color: #9ca3af; margin-bottom: 8px; }
+.field-info-default { color: #9ca3af; font-size: 12px; font-style: italic; line-height: 1.5; }
+.field-info-path { font-family: monospace; font-size: 11px; color: #1d4ed8; background: #eff6ff; padding: 3px 7px; border-radius: 4px; margin-bottom: 6px; word-break: break-all; display: block; }
+.field-info-desc { font-size: 12px; color: #374151; line-height: 1.5; }
+.field-info-no-def { font-size: 11px; color: #9ca3af; font-style: italic; line-height: 1.5; }
 
-      .feature-set {
-        overflow: auto;
-        max-width: 100%;
-        max-height: 100vh;
-      }
+/* ── Glossary (single-toggle) ── */
+.glossary-header {
+  display: flex; justify-content: space-between; align-items: center;
+  cursor: pointer; padding: 4px 0; user-select: none;
+  font-size: 11px; font-weight: 700; text-transform: uppercase; letter-spacing: .6px; color: #9ca3af;
+}
+.glossary-header:hover { color: #6b7280; }
+.glossary-chevron { font-size: 9px; transition: transform .2s; display: inline-block; }
+.glossary-header[aria-expanded="true"] .glossary-chevron { transform: rotate(180deg); }
+.accordion-button { font-size: 12px; font-weight: 600; padding: 6px 10px; }
+.accordion-button:not(.collapsed) { background: #eff6ff; color: #1d4ed8; box-shadow: none; }
+.accordion-button.collapsed { color: #374151; background: transparent; }
+.accordion-body { padding: 4px 10px 10px; }
+.accordion-item { border: none; border-bottom: 1px solid #f3f4f6; }
+.glossary-term { font-weight: 600; font-size: 12px; color: #111827; margin-bottom: 2px; }
+.glossary-abbr { font-family: monospace; font-size: 10px; color: #1d4ed8; background: #eff6ff; padding: 1px 4px; border-radius: 3px; margin-left: 4px; }
+.glossary-def  { font-size: 11.5px; color: #6b7280; line-height: 1.5; margin-bottom: 8px; }
 
-      #markdown-container {
-        max-width: 100%;
-        word-wrap: break-word;
-        overflow-wrap: break-word;
-      }
+/* ── Mermaid container ── */
+#mermaid-container { background: #f9fafb; padding: 10px; border-radius: 8px; border: 1px solid #e5e7eb; margin-bottom: 10px; }
+#mremaid-header { display: flex; justify-content: space-between; align-items: center; }
+#flow-summary { font-size: 14px; font-weight: 600; color: #111827; margin: 0; }
+#mermiad-collapse-icon { transform: rotate(270deg); cursor: pointer; }
+#flow-description { display: none; }
 
-      #markdown-container img {
-        max-width: 100%;
-        width: 100%;
-      }
+/* ── Flow Set dropdown table ── */
+#flow .table { border: none; margin-bottom: 0; }
+#flow .table td { border: none; padding: 8px 4px; vertical-align: middle; font-size: 13px; }
+#flow .table td b { color: #374151; font-weight: 600; }
 
-      #markdown-container pre {
-        overflow-x: auto;
-        max-width: 100%;
-      }
+/* ── Reference sub-tabs ── */
+.ref-pills { gap: 4px; padding: 10px 0 8px; border-bottom: 1px solid #e5e7eb; margin-bottom: 12px; flex-wrap: wrap; }
+.ref-pills .nav-link { font-size: 12px; font-weight: 500; padding: 5px 14px; border-radius: 20px; color: #6b7280; }
+.ref-pills .nav-link.active { background: #1d4ed8; color: #fff; }
+.ref-pills .nav-link:hover:not(.active) { background: #eff6ff; color: #1d4ed8; }
 
-      #markdown-container table {
-        display: block;
-        overflow-x: auto;
-        max-width: 100%;
-      }
-      #logSubmission-container {
-        padding: 10px 0px;
-      }
+/* ── Tables ── */
+table { font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif; border-collapse: collapse; width: 100%; }
+td, th { border: 1px solid #e5e7eb; text-align: left; padding: 8px 10px; font-size: 13px; }
+th { background: #f9fafb; font-weight: 600; color: #374151; }
 
-      #logSubmission {
-        margin: 5px;
-        padding: 10px;
-        border: 1px solid #dee2e6;
-        border-radius: 5px;
-      }
+/* ── Error tab ── */
+.error-heading { display: flex; justify-content: space-between; align-items: center; }
+.error-sub-heading { display: flex; flex-direction: column; font-size: 12px; color: #6b7280; }
 
-       #tabel-tableset{
-        display: flex;
-        justify-content: center;
-        align-items: center;
-        flex-direction: column;
-       }
+/* ── Misc layout ── */
+.flow-forms { width: 75%; }
+form { display: flex; flex-direction: column; justify-content: center; width: 75%; }
+td.Attribute { max-width: 100px; word-wrap: break-word; }
+td.Value { max-width: 160px; word-wrap: break-word; }
+td.Description { min-width: 200px; word-wrap: break-word; }
+.tlc-set { overflow: scroll; }
+.feature-set { overflow: auto; max-width: 100%; max-height: 100vh; }
+.scrollable-content { max-height: 95vh; overflow-y: auto; }
+.branchLink { color: #1d6fc4 !important; text-decoration: none; font-weight: bold; }
+.branchLink:hover { text-decoration: underline; }
+.loader-wrapper { display: flex; justify-content: center; align-items: center; width: 100%; }
+#home { display: none; width: 100%; }
+#home h3 { font-size: 16px; font-weight: 600; color: #111827; margin: 16px 0 12px; }
+.workbench-redirection { text-decoration: none; color: #1d6fc4; }
+.workbench-wrapper { margin: 10px; font-size: 13px; color: #6b7280; }
 
-       /* D3 js style*/
-       .node {
-        cursor: pointer;
-       }
+/* ── D3 tree ── */
+.node { cursor: pointer; }
+.overlay { background-color: #EEE; }
+.node circle { fill: #fff; stroke: steelblue; stroke-width: 1.5px; }
+.node text { font-size: 10px; font-family: sans-serif; }
+.link { fill: none; stroke: #ccc; stroke-width: 1.5px; }
+.templink { fill: none; stroke: red; stroke-width: 3px; }
+.ghostCircle.show { display: block; }
+.ghostCircle, .activeDrag .ghostCircle { display: none; }
+#node-info { background: #fff; border: 1px solid #e5e7eb; padding: 10px; flex-direction: column; width: 30%; height: 400px; overflow-y: scroll; font-size: 12px; }
+#tree-wrapper { display: flex; width: 100%; }
+#tree-container { width: 70%; }
+#attribute-search { width: 100%; font-size: 14px; padding: 10px 16px; border: 1px solid #e5e7eb; border-radius: 6px; margin: 12px 0; }
+#tabel-tableset { display: flex; justify-content: center; align-items: center; flex-direction: column; }
+.key-field { padding: 8px; border: 1px solid #e5e7eb; width: 40%; font-size: 12px; }
+.value-field { padding: 8px; border: 1px solid #e5e7eb; width: 60%; word-wrap: break-word; font-size: 12px; }
+#attribute-tree-data { display: flex; flex-direction: column; }
+.tree-data-field { display: flex; flex-direction: row; width: 100%; }
 
-        .overlay{
-            background-color:#EEE;
-        }
-        
-        .node circle {
-          fill: #fff;
-          stroke: steelblue;
-          stroke-width: 1.5px;
-        }
-        
-        .node text {
-          font-size:10px; 
-          font-family:sans-serif;
-        }
-        
-        .link {
-          fill: none;
-          stroke: #ccc;
-          stroke-width: 1.5px;
-        }
+/* ── Markdown ── */
+#markdown-container { max-width: 100%; word-wrap: break-word; overflow-wrap: break-word; }
+#markdown-container img { max-width: 100%; }
+#markdown-container pre { overflow-x: auto; max-width: 100%; }
+#markdown-container table { display: block; overflow-x: auto; }
 
-        .templink {
-          fill: none;
-          stroke: red;
-          stroke-width: 3px;
-        }
+/* ── Log submission ── */
+#logSubmission-container { padding: 10px 0; }
+#logSubmission { margin: 5px; padding: 10px; border: 1px solid #e5e7eb; border-radius: 5px; }
 
-        .ghostCircle.show{
-            display:block;
-        }
-
-        .ghostCircle, .activeDrag .ghostCircle{
-            display: none;
-        }
-       #node-info{
-        /* position:relative; */
-        background-color: white;
-        border: 1px solid #dee2e6;
-        padding: 10px;
-        flex-direction: column;
-        width: 30%;
-        height: 400px;
-        overflow-y: scroll;
-       }
-       #tree-wrapper{
-        display: flex;
-        width: 100%;
-       }
-       #tree-container{
-        width: 70%;
-       }
-       #attribute-search {
-        width: 100%;
-        font-size: 16px;
-        padding: 12px 20px 12px 20px;
-        border: 1px solid #ddd;
-        margin-bottom: 12px;
-        margin-top: 12px;
-      }
-      .key-field {
-        padding: 10px 5px;
-        border: 1px solid black;
-        width: 40%;
-      }
-      .value-field {
-        padding: 10px 5px;
-        border: 1px solid black;
-        width: 60%;
-        word-wrap: break-word;
-      }
-      #attribute-tree-data {
-        display: flex;
-        flex-direction: column;
-      }
-      .tree-data-field {
-        display: flex;
-        flex-direction: row;
-        width: 100%;
-      }
-
-    .code-section {
-      position: relative;
-      padding: 10px;
-      max-height: 500px;
-      overflow-y: auto;
-      background-color: #000000;
-    }
-    #mremaid-header{
-      display: flex;
-      justify-content: space-between;
-    }
-    #mermiad-collapse-icon{
-      transform: rotate(270deg);
-    }
-    #flow-description{
-      display: none;
-    }
-    #mermaid-container{
-      background-color: #f8f9fa;
-      padding: 10px;
-      margin-bottom: 10px;
-      border-radius: 5px;
-    }
-
-    .renderjson .disclosure    { 
-      color: white;        
-      font-size: 150%; 
-    }
-    .renderjson .syntax        { 
-      color: white; 
-    }
-    .renderjson .string        { 
-      color: white; 
-    }
-    .renderjson .number        {
-       color: white; 
-      }
-    .renderjson .boolean       { color: white; }
-    .renderjson .key           { color: white; }
-    .renderjson .keyword       { color: white; }
-    .renderjson .object.syntax { 
-      color: white; 
-      font-weight: bold;
-    }
-    .renderjson .array.syntax  { color: white; }
-
-    .copy-code-button {
-      height: 32px;
-      width: 32px;
-      background-repeat: no-repeat;
-      position: absolute;
-      top: 5px;
-      right: 15px;
-      cursor: pointer;
-    }
-
-      .branchLink {
-        color: blue !important;          
-        text-decoration: none;
-        font-weight: bold;     
-      }
-
-      .branchLink:hover {
-        color: darkblue;       
-        text-decoration: underline;
-        cursor: pointer;
-      }
-      .loader-wrapper {
-        display: flex;
-        justify-content: center;
-        align-items: center;
-        width: 100%;
-      }
-      /* tr:nth-child(even) {
-        background-color: #dddddd;
-      } */
-    #home{
-      display: none;
-      width: 100%;
-    }
-
-    .workbench-redirection{
-      text-decoration: none;
-    }
-    .workbench-wrapper{
-      margin: 10px
-    }
- 
-
-
+/* ── Legacy renderjson ── */
+.renderjson .disclosure { color: white; font-size: 150%; }
+.renderjson .syntax, .renderjson .string, .renderjson .number, .renderjson .boolean,
+.renderjson .key, .renderjson .keyword { color: white; }
+.renderjson .object.syntax { color: white; font-weight: bold; }
+.renderjson .array.syntax { color: white; }
     </style>
-    <!-- Global site tag (gtag.js) - Google Analytics -->
-      <script async src="https://www.googletagmanager.com/gtag/js?id=G-N4FDWQWNE4"></script>
-      <script>
+
+    <!-- Google Analytics -->
+    <script async src="https://www.googletagmanager.com/gtag/js?id=G-N4FDWQWNE4"></script>
+    <script>
       window.dataLayer = window.dataLayer || [];
       function gtag(){dataLayer.push(arguments);}
       gtag('js', new Date());
       gtag('config', 'G-N4FDWQWNE4');
-      </script>
+    </script>
   </head>
   <body>
     <header class="bg-dark text-white py-3">
       <div class="d-flex justify-content-between align-items-center px-3">
-        <img onclick="toggleHomePage()" height="25" width="25" src="./icons/home.png"/>
-        <h1 class="text-center flex-grow-1">ONDC Financial Services Developer Guide</h1>
+        <img onclick="toggleHomePage()" height="25" width="25" src="./icons/home.png" style="cursor:pointer"/>
+        <h1 class="text-center flex-grow-1 fs-5 mb-0">ONDC Financial Services Developer Guide</h1>
         <div id="version-dropdown">
-          <label for="api-contracts"> Branch:</label>
+          <label for="contract-dropdown">Branch:</label>
           <select id="contract-dropdown" onchange="upadteContract()">
             <option value="master">master</option>
           </select>
         </div>
       </div>
     </header>
+
     <div id="mermaid-renderer"></div>
-    <div id="content" class="container-fluid">
-      <div class="row">
-        <div class="col-lg-8">
-          <div>
-            <ul class="nav nav-tabs" id="myTabs" role="tablist">
-              <li class="nav-item">
-                <a
-                  class="nav-link active"
-                  id="swagger-tab"
-                  data-bs-toggle="tab"
-                  href="#swagger"
-                  role="tab"
-                  aria-selected="true"
-                  onClick="tabClicked('#swagger')"
-                  >Swagger-UI</a
-                >
-              </li>
-              <li class="nav-item">
-                <a
-                  class="nav-link"
-                  id="flow-tab"
-                  data-bs-toggle="tab"
-                  href="#flow"
-                  role="tab"
-                  aria-selected="false"
-                  onClick="tabClicked('#flow')"
-                  >Flow-UI</a
-                >
-              </li>
-              <li class="nav-item" id="attributeui-navbar">
-                <a
-                  class="nav-link"
-                  id="attribute-tab"
-                  data-bs-toggle="tab"
-                  href="#attribute"
-                  role="tab"
-                  aria-selected="false"
-                  onClick="tabClicked('#attribute')"
-                  >Attribute-UI</a
-                >
-              </li>
-              <li class="nav-item" id="errorcodes-navbar">
-                <a
-                  class="nav-link"
-                  id="error-tab"
-                  data-bs-toggle="tab"
-                  href="#error"
-                  role="tab"
-                  aria-selected="false"
-                  onClick="tabClicked('#error')"
-                  >Error-UI</a
-                >
-              </li>
-              <li class="nav-item" id="tlc-nav">
-                <a
-                  class="nav-link"
-                  id="tlc-tab"
-                  data-bs-toggle="tab"
-                  href="#tlc"
-                  role="tab"
-                  aria-selected="false"
-                  onClick="tabClicked('#tlc')"
-                  >TLC-UI</a
-                >
-              </li>
-              <li class="nav-item" id="feature-ui-nav">
-                <a
-                  class="nav-link"
-                  id="feature-tab"
-                  data-bs-toggle="tab"
-                  href="#feature"
-                  role="tab"
-                  aria-selected="false"
-                  onClick="tabClicked('#feature')"
-                  >Feature-UI</a
-                >
-              </li>
-              
-              <li class="nav-item" id="change-log-nav">
-                <a
-                  class="nav-link"
-                  id="change-log-tab"
-                  data-bs-toggle="tab"
-                  href="#changeLog"
-                  role="tab"
-                  aria-selected="false"
-                  onClick="tabClicked('#changeLog')"
-                  >Change-Log-UI</a
-                >
-              </li>
-              <li class="nav-item d-none" id="sandbox-nav">
-                <a
-                  class="nav-link"
-                  id="sandbox-ui-tab"
-                  data-bs-toggle="tab"
-                  href="#sandbox-ui"
-                  role="tab"
-                  aria-selected="false"
-                  onClick="tabClicked('#sandbox-ui')"
-                  >SandBox-UI</a
-                >
-              </li>
-              <!-- <li class="nav-item" id="logSubmission-navbar">
-                <a
-                  class="nav-link"
-                  id="logSubmission-tab"
-                  data-bs-toggle="tab"
-                  href="#logSubmission"
-                  role="tab"
-                  aria-selected="false"
-                  onClick="tabClicked('#logSubmission')"
-                  >LogSubmission-UI</a
-                >
-              </li> -->
-            </ul>
-          </div>
-          <div class="tab-content">
-            <div class="tab-pane fade show active" id="swagger" role="tabpanel">
-              <table class="table">
-                <tr>
-                  <td><b>Example Set</b></td>
-                  <td>
-                    <select
-                      id="example-set"
-                      class="form-select"
-                      onchange="updateExample()"
-                    ></select>
-                  </td>
-                </tr>
-              </table>
-             <div class="workbench-wrapper">
-              ONDC Workbench: <a href="https://workbench.ondc.tech" target="_blank" rel="noopener noreferrer" class="workbench-redirection">
-               Test your application here 
-              </a>
-            </div>
 
+    <!-- Hidden legacy nav IDs kept for shouldDisplay() compat -->
+    <div style="display:none">
+      <li id="errorcodes-navbar"></li>
+      <li id="logSubmission-navbar"></li>
+    </div>
 
-              <div class="scrollable-content">
-                <div id="swagger-ui"></div>
-              </div>
-            </div>
-            <div class="tab-pane fade" id="flow" role="tabpanel">
-              <table class="table">
+    <div id="content" class="container-fluid px-3">
+
+      <!-- ════ MAIN 3-TAB NAV ════ -->
+      <ul class="nav nav-tabs mt-2" id="myTabs" role="tablist">
+        <li class="nav-item">
+          <a class="nav-link active" id="flow-tab" data-bs-toggle="tab" href="#flow"
+             role="tab" aria-selected="true" onClick="tabClicked('#flow')">
+            Flow Walkthrough
+          </a>
+        </li>
+        <li class="nav-item">
+          <a class="nav-link" id="error-tab" data-bs-toggle="tab" href="#error"
+             role="tab" aria-selected="false" onClick="tabClicked('#error')">
+            Error Codes
+          </a>
+        </li>
+        <li class="nav-item">
+          <a class="nav-link" id="reference-tab" data-bs-toggle="tab" href="#reference"
+             role="tab" aria-selected="false" onClick="tabClicked('#reference')">
+            Reference
+          </a>
+        </li>
+      </ul>
+
+      <div class="tab-content">
+
+        <!-- ════════════════════════════════════════
+             TAB 1: FLOW WALKTHROUGH
+        ════════════════════════════════════════ -->
+        <div class="tab-pane fade show active" id="flow" role="tabpanel">
+          <div class="row g-0">
+
+            <!-- Left: flow content -->
+            <div class="col-lg-8 pe-2">
+              <table class="table mt-2">
                 <tr>
                   <td><b>Flow Set</b></td>
                   <td>
-                    <select
-                      id="flow-dropdown"
-                      class="form-select"
-                      onchange="updateFlow()"
-                    ></select>
+                    <select id="flow-dropdown" class="form-select" onchange="updateFlow()"></select>
                   </td>
                 </tr>
               </table>
@@ -524,11 +317,11 @@
                   <div id="mermaid-container">
                     <div id="mremaid-header">
                       <h5 id="flow-summary" class="card-title"></h5>
-                      <img id="mermiad-collapse-icon" onclick="mermaidToggle()" height="25" width="25" src="./icons/down-arrow.png" />
+                      <img id="mermiad-collapse-icon" onclick="mermaidToggle()" height="25" width="25" src="./icons/down-arrow.png" style="cursor:pointer"/>
                     </div>
                     <p id="flow-description" class="card-body"></p>
                   </div>
-                  <div class="container">
+                  <div class="container-fluid px-0">
                     <div class="row">
                       <div class="col-lg-3">
                         <div class="list-group step-pane"></div>
@@ -541,277 +334,476 @@
                 </div>
               </div>
             </div>
-            <div class="tab-pane fade" id="attribute" role="tabpanel">
-              <table class="table">
-                <tr>
-                  <td><b>Attribute Set</b></td>
-                  <td>
-                    <select
-                      id="attribute-sets-dropdown"
-                      class="form-select"
-                      onchange="updateSetsAttribute()"
-                    ></select>
-                  </td>
-                  <td>
-                    <select
-                      id="attribute-dropdown"
-                      class="form-select"
-                      onchange="updateAttribute()"
-                    ></select>
-                  </td>
-                </tr>
-              </table>
-              <div class="table-wrapper" id="tabel-tableset">
-                <div id="tree-wrapper">
-                <div id="tree-container">
+
+            <!-- Right: Field Info + Glossary -->
+            <div class="col-lg-4 sticky-side-panel">
+
+              <!-- Field Info panel -->
+              <div class="card">
+                <div class="card-body" id="field-info-panel">
+                  <div class="field-info-title">🔍 Field Reference</div>
+                  <div id="field-info-content">
+                    <span class="field-info-default">Click any <span style="color:#9CDCFE;font-family:monospace">"key"</span> in the payload to see its definition.</span>
+                  </div>
                 </div>
-                <div id="node-info">
-                  Click on payload to expand the tree.
-                </div>
-              </div>
-              <input type="text" id="attribute-search" onkeyup="searchAttribute()" placeholder="Search Attribute..">
-                <div id="tableset-container">
-                </div>
-                <table id="tableset">
-                  <tr>
-                    <th>Attribute Path</th>
-                    <th>Required</th>
-                    <th>Sample Usage</th>
-                    <th>Owner</th>
-                    <th>Type</th>
-                    <th>Description</th>
-                  </tr>
-                </table>
-              </div>
-            </div>
-            <div class="tab-pane fade" id="error" role="tabpanel">
-              <table class="table">
-                <tr>
-                  <td class="error-heading">
-                    <div><b>Error Set </b></div>
-                    <div class="error-sub-heading">
-                      <b>BPP = Seller App</b><b>BAP = Buyer App</b>
-                    </div>
-                  </td>
-                </tr>
-              </table>
-              <div class="table-wrapper">
-                <table id="errorset">
-                  <tr>
-                    <th>Code</th>
-                    <th>From</th>
-                    <th>Event</th>
-                    <th>Description</th>
-                  </tr>
-                </table>
-              </div>
-            </div>
-            <div class="tab-pane fade" id="tlc" role="tabpanel">
-              <table class="table">
-                <tr>
-                  <td><b>TLC Set</b></td>
-                </tr>
-              </table>
-              <div class="tlc-set">
-                <table id="tlcset">
-                  <tr>
-                    <th>Term</th>
-                    <th>Api Call</th>
-                    <th>Attribute/Tag</th>
-                    <th>Owner</th>
-                    <th>Value</th>
-                    <th>Interpretation and configuration</th>
-                  </tr>
-                </table>
-              </div>
-            </div>
-            <div class="tab-pane fade" id="sandbox-ui" role="tabpanel">
-              <div class="me-5 mt-1 ms-3">
-                <label for="api-contracts"> Version:</label>
-                <select id="sandbox-dropdown" onchange="updateSandbox()">
-                  <!-- <option>Credit</option> -->
-                </select>
               </div>
 
-              <iframe
-                src=""
-                height="800px"
-                width="100%"
-                title="Iframe Example"
-                id="sandbox-iframe"
-              ></iframe>
-            </div>
-            <div class="tab-pane fade" id="feature" role="tabpanel">
-              <table class="table">
-                <tr>
-                  <td><b>Feature Set</b></td>
-                  <td>
-                    <select
-                      id="feature-sets-dropdown"
-                      class="form-select"
-                      onchange="updateFeature()"
-                    ></select>
-                  </td>
-                </tr>
-              </table>
-              <div class="feature-set">
-                <div id="markdown-container"></div>
+              <!-- Glossary -->
+              <div class="card">
+                <div class="card-body p-2">
+                  <div class="glossary-header" data-bs-toggle="collapse" data-bs-target="#glossaryBody" aria-expanded="false">
+                    <span>📖 Glossary</span>
+                    <span class="glossary-chevron">▼</span>
+                  </div>
+                  <div class="collapse" id="glossaryBody">
+                  <div class="accordion accordion-flush" id="glossaryAccordion">
+
+                    <!-- Network Participants -->
+                    <div class="accordion-item">
+                      <h2 class="accordion-header">
+                        <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#gloss-participants">
+                          Network Participants
+                        </button>
+                      </h2>
+                      <div id="gloss-participants" class="accordion-collapse collapse" data-bs-parent="#glossaryAccordion">
+                        <div class="accordion-body">
+                          <p class="glossary-term">BAP <span class="glossary-abbr">Buyer App Platform</span></p>
+                          <p class="glossary-def">Any borrower-facing application. Broadcasts loan applications to all lenders via the Gateway. Must comply with prevailing RBI digital lending guidelines.</p>
+
+                          <p class="glossary-term">BPP <span class="glossary-abbr">Seller / Lender Platform</span></p>
+                          <p class="glossary-def">RBI-registered Regulated Entities: Scheduled Commercial Banks (SCBs), NBFCs, Primary (Urban) Co-operative Banks (UCBs), Regional Rural Banks (RRBs). Acts as the <em>catalog provider</em> — publishes available loan products via <code>on_search</code> responses.</p>
+
+                          <p class="glossary-term">Gateway <span class="glossary-abbr">BG</span></p>
+                          <p class="glossary-def">ONDC network gateway that broadcasts search / discovery requests to all registered lenders simultaneously.</p>
+
+                          <p class="glossary-term">Registry</p>
+                          <p class="glossary-def">ONDC registry of all verified network participants (BAPs, BPPs, Gateways). Used for identity verification of each message sender/receiver.</p>
+                        </div>
+                      </div>
+                    </div>
+
+                    <!-- Catalog & Offers -->
+                    <div class="accordion-item">
+                      <h2 class="accordion-header">
+                        <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#gloss-catalog">
+                          Catalog &amp; Offers
+                        </button>
+                      </h2>
+                      <div id="gloss-catalog" class="accordion-collapse collapse" data-bs-parent="#glossaryAccordion">
+                        <div class="accordion-body">
+                          <p class="glossary-term">Catalog Provider</p>
+                          <p class="glossary-def">The BPP (lender) that publishes its loan products, interest rates, EMI plans, and fee structures to the network. Each lender independently publishes their catalog in <code>on_search</code> responses to all connected BAPs.</p>
+
+                          <p class="glossary-term">Provider</p>
+                          <p class="glossary-def">The lender entity within an order — identified by <code>provider.id</code> (their ONDC registry ID). Contains descriptor, locations, and items (loan products).</p>
+
+                          <p class="glossary-term">Item</p>
+                          <p class="glossary-def">A specific loan product or EMI plan offered by a provider. Contains pricing, tags with loan terms (rate, tenure, amount range).</p>
+
+                          <p class="glossary-term">Quote</p>
+                          <p class="glossary-def">The itemised cost breakdown for a specific loan offer — includes principal, processing fee, insurance, GST, and net disbursed amount.</p>
+
+                          <p class="glossary-term">Fulfillment</p>
+                          <p class="glossary-def">Represents disbursement or repayment events. Each EMI installment is a separate fulfillment with its own start/end dates and amount.</p>
+                        </div>
+                      </div>
+                    </div>
+
+                    <!-- Data & Consent -->
+                    <div class="accordion-item">
+                      <h2 class="accordion-header">
+                        <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#gloss-data">
+                          Data &amp; Consent
+                        </button>
+                      </h2>
+                      <div id="gloss-data" class="accordion-collapse collapse" data-bs-parent="#glossaryAccordion">
+                        <div class="accordion-body">
+                          <p class="glossary-term">AA <span class="glossary-abbr">Account Aggregator</span></p>
+                          <p class="glossary-def">RBI-licensed entities (e.g. Finvu, Onemoney) that enable borrowers to electronically share bank statements with lenders via a consent framework. Lenders create consent requests; borrower approves on the AA portal.</p>
+
+                          <p class="glossary-term">Consent Handle</p>
+                          <p class="glossary-def">A unique ID returned by the lender that identifies a specific consent request at the Account Aggregator.</p>
+
+                          <p class="glossary-term">GSP <span class="glossary-abbr">GST Suvidha Provider</span></p>
+                          <p class="glossary-def">GSTN-authorised providers. Buyer apps connect directly to retrieve GSTR-1, GSTR-2A, and GSTR-3B data for GST invoice financing use cases.</p>
+
+                          <p class="glossary-term">SIDBI Dedupe Registry</p>
+                          <p class="glossary-def">Registry mandatory for all lenders to check if an invoice has already been funded, and to update when a new loan is disbursed against it. Prevents double-funding of invoices.</p>
+
+                          <p class="glossary-term">Credit Bureau / CIC</p>
+                          <p class="glossary-def">RBI-regulated Credit Information Companies (e.g. CIBIL, Experian). Lenders pull borrower credit files to assess creditworthiness during underwriting.</p>
+                        </div>
+                      </div>
+                    </div>
+
+                    <!-- Identity & KYC -->
+                    <div class="accordion-item">
+                      <h2 class="accordion-header">
+                        <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#gloss-kyc">
+                          Identity &amp; KYC
+                        </button>
+                      </h2>
+                      <div id="gloss-kyc" class="accordion-collapse collapse" data-bs-parent="#glossaryAccordion">
+                        <div class="accordion-body">
+                          <p class="glossary-term">KYC <span class="glossary-abbr">Know Your Customer</span></p>
+                          <p class="glossary-def">Identity verification required before loan disbursement. Individuals: Aadhar eKYC or DigiLocker pull. Sole proprietors: both individual KYC + entity KYC (Udyam certificate).</p>
+
+                          <p class="glossary-term">eSign</p>
+                          <p class="glossary-def">Electronic signing of the loan agreement using either Aadhar OTP-based eSign or clickwrap acceptance.</p>
+
+                          <p class="glossary-term">eNACH / eMandate</p>
+                          <p class="glossary-def">Electronic National Automated Clearing House mandate — authorises automatic EMI debits from the borrower's bank account each month.</p>
+
+                          <p class="glossary-term">UIDAI / DigiLocker</p>
+                          <p class="glossary-def">Government platforms for Aadhar-based eKYC and document retrieval (Udyam Certificate, Aadhar XML).</p>
+
+                          <p class="glossary-term">Penny Drop</p>
+                          <p class="glossary-def">A small test credit (₹1) to the borrower's bank account to verify the account details before disbursement.</p>
+                        </div>
+                      </div>
+                    </div>
+
+                    <!-- Products & Customers -->
+                    <div class="accordion-item">
+                      <h2 class="accordion-header">
+                        <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#gloss-products">
+                          Products &amp; Customers
+                        </button>
+                      </h2>
+                      <div id="gloss-products" class="accordion-collapse collapse" data-bs-parent="#glossaryAccordion">
+                        <div class="accordion-body">
+                          <p class="glossary-term">Personal Loan</p>
+                          <p class="glossary-def">Unsecured loan for salaried or self-employed individuals. Underwritten using bureau data and optionally AA bank statements.</p>
+
+                          <p class="glossary-term">GST Invoice Financing</p>
+                          <p class="glossary-def">Unsecured loan for sole proprietors backed by their GST invoice data (GSTR-1, GSTR-2A, GSTR-3B). Lenders fund specific invoices.</p>
+
+                          <p class="glossary-term">NTB <span class="glossary-abbr">New To Bank</span></p>
+                          <p class="glossary-def">A borrower with no existing relationship with the lender. Requires full KYC and underwriting from scratch.</p>
+
+                          <p class="glossary-term">ETB <span class="glossary-abbr">Existing To Bank</span></p>
+                          <p class="glossary-def">A borrower with an existing relationship with the lender. May qualify for pre-approved offers without AA consent.</p>
+
+                          <p class="glossary-term">STP <span class="glossary-abbr">Straight-Through Processing</span></p>
+                          <p class="glossary-def">Fully automated loan application and disbursement with no manual intervention required.</p>
+
+                          <p class="glossary-term">Buyer Finder Fee</p>
+                          <p class="glossary-def">A fee the BAP shares with the lender through the protocol, dynamically adjustable. Lenders can filter offers based on whether they accept the specified fee.</p>
+                        </div>
+                      </div>
+                    </div>
+
+                    <!-- Protocol Terms -->
+                    <div class="accordion-item">
+                      <h2 class="accordion-header">
+                        <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#gloss-protocol">
+                          Protocol Terms
+                        </button>
+                      </h2>
+                      <div id="gloss-protocol" class="accordion-collapse collapse" data-bs-parent="#glossaryAccordion">
+                        <div class="accordion-body">
+                          <p class="glossary-term">transaction_id</p>
+                          <p class="glossary-def">A UUID that ties all API messages in a single end-to-end transaction (search → on_search → select → … → confirm). Same value across the entire journey.</p>
+
+                          <p class="glossary-term">message_id</p>
+                          <p class="glossary-def">Unique to each individual API call. The corresponding response (e.g. on_search for search) carries the same message_id.</p>
+
+                          <p class="glossary-term">TTL <span class="glossary-abbr">Time To Live</span></p>
+                          <p class="glossary-def">ISO 8601 duration (e.g. PT10M = 10 minutes) — how long the request remains valid. Receivers should reject stale messages.</p>
+
+                          <p class="glossary-term">ACK / NACK</p>
+                          <p class="glossary-def">Synchronous acknowledgement returned immediately. ACK = accepted for asynchronous processing. NACK = rejected, with error details.</p>
+
+                          <p class="glossary-term">Tags</p>
+                          <p class="glossary-def">Extensible key-value metadata groups attached to items, fulfillments, payments, or orders. Used to carry ONDC-specific fields like loan terms, consent info, and fees.</p>
+
+                          <p class="glossary-term">Descriptor</p>
+                          <p class="glossary-def">A structured label — contains a <code>code</code> (machine-readable) and optionally <code>name</code>, <code>short_desc</code>, <code>long_desc</code>, <code>images</code>.</p>
+                        </div>
+                      </div>
+                    </div>
+
+                  </div><!-- /accordion -->
+                  </div><!-- /glossaryBody -->
+                </div>
+              </div><!-- /glossary card -->
+
+              <!-- Enum -->
+              <div class="card">
+                <div class="card-body">
+                  <h5 class="card-title">Enum</h5>
+                  <table class="table">
+                    <tr>
+                      <td><b>API</b></td>
+                      <td><select id="dropdown1" class="form-select" onchange="loadDropdown2()"></select></td>
+                    </tr>
+                    <tr>
+                      <td><b>Field</b></td>
+                      <td><select id="dropdown2" class="form-select" onchange="loadDropdown4()"></select></td>
+                    </tr>
+                    <tr>
+                      <td><b>Enum</b></td>
+                      <td><select id="dropdown4" class="form-select" onchange="displayTable()"></select></td>
+                    </tr>
+                  </table>
+                  <table id="result-table" class="table"></table>
+                </div>
               </div>
-            </div>
-            <div class="tab-pane fade" id="changeLog" role="tabpanel">
-              <table class="table">
-                <tr>
-                  <td><b>Version: </b></td>
-                  <td>
-                    <select
-                      id="change-log-dropdown"
-                      class="form-select"
-                      onchange="updateChangeLog()"
-                    ></select>
-                  </td>
-                </tr>
-              </table>
-              <div class="feature-set">
-                <div id="change-log-container"></div>
+
+              <!-- Tags -->
+              <div class="card">
+                <div class="card-body">
+                  <h5 class="card-title">Tags</h5>
+                  <table class="table">
+                    <tr>
+                      <td><b>API</b></td>
+                      <td><select id="tag-schema-dropdown" class="form-select" onchange="loadTagPath()"></select></td>
+                    </tr>
+                    <tr>
+                      <td><b>Field</b></td>
+                      <td><select id="tag-path-dropdown" class="form-select" onchange="loadTagGroup()"></select></td>
+                    </tr>
+                    <tr>
+                      <td><b>TagGroup</b></td>
+                      <td><select id="tag-group-dropdown" class="form-select" onchange="loadTag()"></select></td>
+                    </tr>
+                    <tr>
+                      <td><b>Tag</b></td>
+                      <td><select id="tag-dropdown" class="form-select" onchange="displayTag()"></select></td>
+                    </tr>
+                    <tr>
+                      <td><b>Sub-Tag</b></td>
+                      <td><select id="sub-tag-dropdown" class="form-select" onchange="displaySubTag()"></select></td>
+                    </tr>
+                  </table>
+                  <table id="tag-group-table" class="table"></table>
+                  <table id="tag-table" class="table"></table>
+                  <table id="sub-tag-table" class="table"></table>
+                </div>
               </div>
-            </div>
-            <div class="tab-pane fade" id="logSubmission" role="tabpanel">
-              <div class="logSubmission-set">
-                <div id="logSubmission-container"></div>
-              </div>
-            </div>
+
+            </div><!-- /col-lg-4 -->
+          </div><!-- /row -->
+        </div><!-- /flow tab-pane -->
+
+
+        <!-- ════════════════════════════════════════
+             TAB 2: ERROR CODES
+        ════════════════════════════════════════ -->
+        <div class="tab-pane fade" id="error" role="tabpanel">
+          <table class="table mt-2">
+            <tr>
+              <td class="error-heading">
+                <div><b>Error Set</b></div>
+                <div class="error-sub-heading">
+                  <b>BPP = Seller App</b><b>BAP = Buyer App</b>
+                </div>
+              </td>
+            </tr>
+          </table>
+          <div class="table-wrapper">
+            <table id="errorset">
+              <tr>
+                <th>Code</th>
+                <th>From</th>
+                <th>Event</th>
+                <th>Description</th>
+              </tr>
+            </table>
           </div>
-        </div>
-        <div class="col-lg-4">
-          <div>
-            <div class="card">
-              <div class="card-body">
-                <h5 class="card-title">Enum</h5>
-                <table class="table">
-                  <tr>
-                    <td><b>API</b></td>
-                    <td>
-                      <select
-                        id="dropdown1"
-                        class="form-select"
-                        onchange="loadDropdown2()"
-                      ></select>
-                    </td>
-                  </tr>
-                  <tr>
-                    <td><b>Field</b></td>
-                    <td>
-                      <select
-                        id="dropdown2"
-                        class="form-select"
-                        onchange="loadDropdown4()"
-                      ></select>
-                    </td>
-                  </tr>
-                  <tr>
-                    <td><b>Enum</b></td>
-                    <td>
-                      <select
-                        id="dropdown4"
-                        class="form-select"
-                        onchange="displayTable()"
-                      ></select>
-                    </td>
-                  </tr>
-                </table>
-                <table id="result-table" class="table"></table>
-              </div>
-            </div>
-            <div class="card">
-              <div class="card-body">
-                <h5 class="card-title">Tags</h5>
-                <table class="table">
-                  <tr>
-                    <td><b>API</b></td>
-                    <td>
-                      <select
-                        id="tag-schema-dropdown"
-                        class="form-select"
-                        onchange="loadTagPath()"
-                      ></select>
-                    </td>
-                  </tr>
-                  <tr>
-                    <td><b>Field</b></td>
-                    <td>
-                      <select
-                        id="tag-path-dropdown"
-                        class="form-select"
-                        onchange="loadTagGroup()"
-                      ></select>
-                    </td>
-                  </tr>
-                  <tr>
-                    <td><b>TagGroup</b></td>
-                    <td>
-                      <select
-                        id="tag-group-dropdown"
-                        class="form-select"
-                        onchange="loadTag()"
-                      ></select>
-                    </td>
-                  </tr>
-                  <tr>
-                    <td><b>Tag</b></td>
-                    <td>
-                      <select
-                        id="tag-dropdown"
-                        class="form-select"
-                        onchange="displayTag()"
-                      ></select>
-                    </td>
-                  </tr>
-                  <tr>
-                    <td><b>Sub-Tag</b></td>
-                    <td>
-                      <select
-                        id="sub-tag-dropdown"
-                        class="form-select"
-                        onchange="displaySubTag()"
-                      ></select>
-                    </td>
-                  </tr>
-                </table>
-                <table id="tag-group-table" class="table"></table>
-                <table id="tag-table" class="table"></table>
-                <table id="sub-tag-table" class="table"></table>
-              </div>
-            </div>
-          </div>
-        </div>
-      </div>
-    </div>
+        </div><!-- /error tab-pane -->
+
+
+        <!-- ════════════════════════════════════════
+             TAB 3: REFERENCE
+        ════════════════════════════════════════ -->
+        <div class="tab-pane fade" id="reference" role="tabpanel">
+          <div class="row g-0">
+
+            <!-- Sub-tab content (full width) -->
+            <div class="col-lg-12">
+
+              <!-- Sub-tab nav (pills) -->
+              <ul class="nav ref-pills" id="refSubTabs" role="tablist">
+                <li class="nav-item">
+                  <a class="nav-link active" data-bs-toggle="pill" href="#swagger"
+                     role="tab" onClick="tabClicked('#swagger')">API Docs</a>
+                </li>
+                <li class="nav-item" id="attributeui-navbar">
+                  <a class="nav-link" data-bs-toggle="pill" href="#attribute"
+                     role="tab" onClick="tabClicked('#attribute')">Attributes</a>
+                </li>
+                <li class="nav-item" id="tlc-nav">
+                  <a class="nav-link" data-bs-toggle="pill" href="#tlc"
+                     role="tab" onClick="tabClicked('#tlc')">TLC</a>
+                </li>
+                <li class="nav-item" id="feature-ui-nav">
+                  <a class="nav-link" data-bs-toggle="pill" href="#feature"
+                     role="tab" onClick="tabClicked('#feature')">Guides</a>
+                </li>
+                <li class="nav-item" id="change-log-nav">
+                  <a class="nav-link" data-bs-toggle="pill" href="#changeLog"
+                     role="tab" onClick="tabClicked('#changeLog')">Changelog</a>
+                </li>
+                <li class="nav-item d-none" id="sandbox-nav">
+                  <a class="nav-link" data-bs-toggle="pill" href="#sandbox-ui"
+                     role="tab" onClick="tabClicked('#sandbox-ui')">Sandbox</a>
+                </li>
+              </ul>
+
+              <!-- Sub-tab panes -->
+              <div class="tab-content" id="refSubContent">
+
+                <!-- API Docs (Swagger) -->
+                <div class="tab-pane fade show active" id="swagger" role="tabpanel">
+                  <table class="table">
+                    <tr>
+                      <td><b>Example Set</b></td>
+                      <td>
+                        <select id="example-set" class="form-select" onchange="updateExample()"></select>
+                      </td>
+                    </tr>
+                  </table>
+                  <div class="workbench-wrapper">
+                    ONDC Workbench: <a href="https://workbench.ondc.tech" target="_blank" rel="noopener noreferrer" class="workbench-redirection">Test your application here</a>
+                  </div>
+                  <div class="scrollable-content">
+                    <div id="swagger-ui"></div>
+                  </div>
+                </div>
+
+                <!-- Attributes -->
+                <div class="tab-pane fade" id="attribute" role="tabpanel">
+                  <table class="table">
+                    <tr>
+                      <td><b>Attribute Set</b></td>
+                      <td>
+                        <select id="attribute-sets-dropdown" class="form-select" onchange="updateSetsAttribute()"></select>
+                      </td>
+                      <td>
+                        <select id="attribute-dropdown" class="form-select" onchange="updateAttribute()"></select>
+                      </td>
+                    </tr>
+                  </table>
+                  <div class="table-wrapper" id="tabel-tableset">
+                    <div id="tree-wrapper">
+                      <div id="tree-container"></div>
+                      <div id="node-info">Click on payload to expand the tree.</div>
+                    </div>
+                    <input type="text" id="attribute-search" onkeyup="searchAttribute()" placeholder="Search Attribute.."/>
+                    <div id="tableset-container"></div>
+                    <table id="tableset">
+                      <tr>
+                        <th>Attribute Path</th>
+                        <th>Required</th>
+                        <th>Sample Usage</th>
+                        <th>Owner</th>
+                        <th>Type</th>
+                        <th>Description</th>
+                      </tr>
+                    </table>
+                  </div>
+                </div>
+
+                <!-- TLC -->
+                <div class="tab-pane fade" id="tlc" role="tabpanel">
+                  <table class="table">
+                    <tr><td><b>TLC Set</b></td></tr>
+                  </table>
+                  <div class="tlc-set">
+                    <table id="tlcset">
+                      <tr>
+                        <th>Term</th>
+                        <th>Api Call</th>
+                        <th>Attribute/Tag</th>
+                        <th>Owner</th>
+                        <th>Value</th>
+                        <th>Interpretation and configuration</th>
+                      </tr>
+                    </table>
+                  </div>
+                </div>
+
+                <!-- Guides / Feature -->
+                <div class="tab-pane fade" id="feature" role="tabpanel">
+                  <table class="table">
+                    <tr>
+                      <td><b>Feature Set</b></td>
+                      <td>
+                        <select id="feature-sets-dropdown" class="form-select" onchange="updateFeature()"></select>
+                      </td>
+                    </tr>
+                  </table>
+                  <div class="feature-set">
+                    <div id="markdown-container"></div>
+                  </div>
+                </div>
+
+                <!-- Changelog -->
+                <div class="tab-pane fade" id="changeLog" role="tabpanel">
+                  <table class="table">
+                    <tr>
+                      <td><b>Version:</b></td>
+                      <td>
+                        <select id="change-log-dropdown" class="form-select" onchange="updateChangeLog()"></select>
+                      </td>
+                    </tr>
+                  </table>
+                  <div class="feature-set">
+                    <div id="change-log-container"></div>
+                  </div>
+                </div>
+
+                <!-- Sandbox -->
+                <div class="tab-pane fade" id="sandbox-ui" role="tabpanel">
+                  <div class="me-5 mt-1 ms-3">
+                    <label>Version:</label>
+                    <select id="sandbox-dropdown" onchange="updateSandbox()"></select>
+                  </div>
+                  <iframe src="" height="800px" width="100%" title="Sandbox" id="sandbox-iframe"></iframe>
+                </div>
+
+                <!-- Log Submission (hidden) -->
+                <div class="tab-pane fade" id="logSubmission" role="tabpanel">
+                  <div class="logSubmission-set">
+                    <div id="logSubmission-container"></div>
+                  </div>
+                </div>
+
+              </div><!-- /sub-tab panes -->
+            </div><!-- /col-lg-12 -->
+          </div><!-- /row -->
+        </div><!-- /reference tab-pane -->
+
+      </div><!-- /tab-content -->
+    </div><!-- /content -->
+
+
+    <!-- ════ HOME (branches) ════ -->
     <div id="home" class="container-fluid">
       <h3>Branches</h3>
       <table class="table">
         <thead>
           <tr>
-            <th scope="col">Usecase </th>
+            <th scope="col">Usecase</th>
             <th scope="col">Description</th>
             <th scope="col">Status</th>
             <th scope="col">Branch name</th>
           </tr>
         </thead>
-        <tbody id="branchesTableBody">
-        </tbody>
+        <tbody id="branchesTableBody"></tbody>
       </table>
     </div>
 
-      <div id="loader" class="loader-wrapper py-3">
-        <div class="spinner-border text-primary" role="status">
-          <span class="visually-hidden">Loading...</span>
-        </div>
+    <!-- ════ LOADER ════ -->
+    <div id="loader" class="loader-wrapper py-3">
+      <div class="spinner-border text-primary" role="status">
+        <span class="visually-hidden">Loading...</span>
       </div>
+    </div>
 
-
-    <!-- Bootstrap JS files (placed at the end for faster page load) -->
+    <!-- Scripts -->
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
-    <!-- Swagger UI initialization -->
     <script src="https://cdn.jsdelivr.net/npm/swagger-ui-dist@3.52.0/swagger-ui-bundle.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/swagger-ui-dist@3.52.0/swagger-ui-standalone-preset.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/js-yaml/4.1.0/js-yaml.min.js"></script>
@@ -839,6 +831,5 @@
     <script src="ui/change-log.js"></script>
     <script src="ui/branches.js"></script>
     <script type="text/javascript" src="ui/renderjson.js"></script>
-    <!-- Your existing scripts here -->
   </body>
 </html>
